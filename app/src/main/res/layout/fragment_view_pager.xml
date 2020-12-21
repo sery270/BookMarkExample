@@ -58,16 +58,15 @@
             android:text="즐겨찾기 리스트" />
     </com.google.android.material.tabs.TabLayout>
 
-    <fragment
-        android:id="@+id/view_pager_fg_fl"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager_fg_vp"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        tools:layout="@layout/fragment_list"
         app:layout_constraintTop_toBottomOf="@id/view_pager_fg_tl"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@id/gl_left"
         app:layout_constraintEnd_toEndOf="@id/gl_right"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
