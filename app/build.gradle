@@ -46,11 +46,15 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     // navigation
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.2'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.3.2'
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
+    implementation "androidx.navigation:navigation-runtime-ktx:$navigationVersion"
 
     // viewpager2
     implementation "androidx.viewpager2:viewpager2:1.0.0"
+
+    // Coordinator 사용 라이브러리
+    implementation 'com.android.support:support-annotations:27.1.1'
 
 
 }
