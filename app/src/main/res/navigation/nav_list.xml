@@ -8,7 +8,6 @@
         android:id="@+id/view_pager_fragment"
         android:name="com.example.bookmark.fragment.ViewPagerFragment"
         tools:layout="@layout/fragment_view_pager">
-
         <action
             android:id="@+id/action_view_pager_fragment_to_detail_fragment"
             app:destination="@id/detail_fragment" />
@@ -18,7 +17,6 @@
         android:id="@+id/detail_fragment"
         android:name="com.example.bookmark.fragment.DetailFragment"
         tools:layout="@layout/fragment_detail">
-
         <action
             android:id="@+id/action_detail_fragment_to_view_pager_fragment"
             app:destination="@id/view_pager_fragment" />
