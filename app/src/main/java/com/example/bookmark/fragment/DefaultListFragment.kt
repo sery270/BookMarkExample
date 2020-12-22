@@ -5,13 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.findNavController
 import com.example.bookmark.R
 
 
-class DetailFragment : Fragment() {
+class DefaultListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,17 +22,18 @@ class DetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detail, container, false)
+        return inflater.inflate(R.layout.fragment_default_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        // 뒤로가기
-        // navigateUp() 현재 스택을 팝
-        view.findViewById<ImageView>(R.id.detail_fg_btn_back).setOnClickListener {
-            it.findNavController().navigateUp()
+        view.findViewById<TextView>(R.id.list_fg_btn).setOnClickListener {
+            it.findNavController().navigate(R.id.action_view_pager_fragment_to_detail_fragment)
         }
+    }
+
+    private fun getDefaultList(page: Int){
+
     }
 
 
