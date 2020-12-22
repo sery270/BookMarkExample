@@ -17,6 +17,7 @@ class ItemDecoration: RecyclerView.ItemDecoration() {
         super.getItemOffsets(outRect, view, parent, state)
         val pos  = parent.getChildAdapterPosition(view)
         if(pos == 0)
+            //  dp 단위를 Pixel 단위로 변경
             outRect.top = TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
                 20F, view.context.resources.displayMetrics

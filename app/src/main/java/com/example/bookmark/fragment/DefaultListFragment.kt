@@ -26,6 +26,7 @@ import retrofit2.Response
 class DefaultListFragment : Fragment() {
     lateinit var recyclerView: RecyclerView
     lateinit var adapter: DefaultListAdapter
+    private var page = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,11 +50,33 @@ class DefaultListFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(this.context)
         recyclerView.addItemDecoration(ItemDecoration())
 
+        // recyclerView data init
+        getDefaultList(view, page)
 
-        getDefaultList(view, "1")
+        // recyclerView paging
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                var lastVisibleItemPosition =  (recyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                var itemTotalCount = (recyclerView.layoutManager as LinearLayoutManager).itemCount - 1
+                Log.e("스크롤 중 ! ",
+                    "lastVisibleItemPosition: ${lastVisibleItemPosition.toString()} " +
+                            "itemTotalCount : ${itemTotalCount.toString()}" +
+                            "page : ${page.toString()}" )
+                if (lastVisibleItemPosition == itemTotalCount && page < 3){
+                    page++
+                    getDefaultList(view, page)
+                }
+            }
+
+        })
+
+
+
     }
 
-    private fun getDefaultList(view: View, page: String){
+    private fun getDefaultList(view: View, page: Int){
         val call: Call<ResponseProductInfo> = RequestToServer.service.requestAccommodationInfo(page)
         call.enqueue(object : Callback<ResponseProductInfo>{
             // 통신 자체 실패 -> 클라 잘못
@@ -83,8 +106,16 @@ class DefaultListFragment : Fragment() {
                         } else {
                             //if 서버 통신 성공 && 결과 있음
                             // rv 동작 게시
-                            adapter.datas = body.data.product
-                            adapter.notifyDataSetChanged()
+
+                            // paging 처리
+                            // Integer.parseInt(page)
+                            if( page == 1){
+                                adapter.datas = body.data.product
+                                adapter.notifyDataSetChanged()
+                            }else{
+                                adapter.datas.addAll(body.data.product)
+                                adapter.notifyDataSetChanged()
+                            }
 
                             // 리사이클러뷰 클릭 리스너
                             adapter.setItemClickListener(object : DefaultListAdapter.ItemClickListener{

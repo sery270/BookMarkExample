@@ -17,6 +17,6 @@ interface RequestInterface {
 
     @GET("/App/json/{paging}.json")
     fun requestAccommodationInfo(
-            @Path("paging") page: String
+            @Path("paging") page: Int
     ) : Call<ResponseProductInfo>
 }
