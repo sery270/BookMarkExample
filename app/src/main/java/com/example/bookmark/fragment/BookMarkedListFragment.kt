@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.bookmark.R
 import com.example.bookmark.adapter.BookMarkedListAdapter
 import com.example.bookmark.data.BookMarkApplication
+import com.example.bookmark.util.ItemDecoration
 import com.example.bookmark.viewmodels.BookMarkViewModel
 import com.example.bookmark.viewmodels.BookMarkViewModelFactory
 
@@ -49,6 +50,7 @@ class BookMarkedListFragment : Fragment() {
         adapter = BookMarkedListAdapter()
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this.context)
+        recyclerView.addItemDecoration(ItemDecoration())
 
 
         bookMarkViewModel.ascRate.observe(owner = viewLifecycleOwner) { bookMark ->

@@ -17,6 +17,7 @@ import com.example.bookmark.adapter.DefaultListAdapter
 import com.example.bookmark.api.Product
 import com.example.bookmark.api.RequestToServer
 import com.example.bookmark.api.ResponseProductInfo
+import com.example.bookmark.util.ItemDecoration
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -46,6 +47,8 @@ class DefaultListFragment : Fragment() {
         adapter = DefaultListAdapter(view.context)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this.context)
+        recyclerView.addItemDecoration(ItemDecoration())
+
 
         getDefaultList(view, "1")
     }
