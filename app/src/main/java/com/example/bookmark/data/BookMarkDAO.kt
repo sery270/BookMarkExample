@@ -26,7 +26,7 @@ interface BookMarkDAO {
 
     // 즐겨 찾기한 상품인지 확인
     @Query("SELECT * FROM BookMarkTable WHERE id = (:id)")
-    fun isBookMarked(id: Int): Boolean
+    fun isBookMarked(id: Int): BookMark?
 
     // 즐겨 찾기한 상품을 삽입
     @Insert(onConflict = OnConflictStrategy.IGNORE)

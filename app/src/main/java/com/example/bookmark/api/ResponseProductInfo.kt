@@ -1,9 +1,9 @@
 package com.example.bookmark.api
 
-data class ResponseAccommodationInfo(
+data class ResponseProductInfo(
     val msg: String,
     val code: Int,
-    val data: MutableList<Data>
+    val data: Data
 )
 
 data class Data(
@@ -16,7 +16,7 @@ data class Product(
     val name: String,
     val thumbnail: String,
     val rate: Float,
-    val description: MutableList<Description>
+    val description: Description
 )
 
 data class Description(

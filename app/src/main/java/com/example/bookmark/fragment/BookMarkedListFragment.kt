@@ -7,16 +7,26 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ListAdapter
 import android.widget.TextView
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bookmark.R
 import com.example.bookmark.adapter.BookMarkedListAdapter
+import com.example.bookmark.data.BookMarkApplication
+import com.example.bookmark.viewmodels.BookMarkViewModel
+import com.example.bookmark.viewmodels.BookMarkViewModelFactory
 
 
 class BookMarkedListFragment : Fragment() {
     lateinit var recyclerView: RecyclerView
     lateinit var adapter: BookMarkedListAdapter
+    private val newBookMarkRequestCode = 1
+    private val bookMarkViewModel: BookMarkViewModel by viewModels {
+        BookMarkViewModelFactory((activity?.application as BookMarkApplication).repository)
+        //context?.applicationContext  activity?.application과 의 차이점에 대해서 찾아보자
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,8 +51,11 @@ class BookMarkedListFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(this.context)
 
 
+        bookMarkViewModel.ascRate.observe(owner = viewLifecycleOwner) { bookMark ->
+            bookMark.let { adapter.submitList(it) }
+        }
 
-
+//        bookMarkViewModel.insert(word)
     }
 
 }
