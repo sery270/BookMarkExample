@@ -82,12 +82,12 @@
             android:layout_height="wrap_content"/>
     </LinearLayout>
 
-    <ImageView
+    <CheckBox
         android:id="@+id/item_book_marked_list_btn_book_mark"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:src="@drawable/ic_baseline_favorite_border_24"
-        android:scaleType="centerCrop"
+        android:button="@null"
+        android:background="@drawable/book_mark_selector"
         app:layout_constraintEnd_toEndOf="@id/gl_right"
         app:layout_constraintBottom_toBottomOf="@id/item_book_marked_list_iv" />
 
@@ -106,5 +106,16 @@
         app:layout_constraintTop_toBottomOf="@id/item_book_marked_list_iv"
         app:layout_constraintBottom_toBottomOf="@id/gl_bottom"
         android:layout_marginTop="10dp" />
+
+    <TextView
+        android:id="@+id/item_book_marked_list_tv_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/gl_left"
+        app:layout_constraintEnd_toEndOf="@id/gl_right"
+        app:layout_constraintTop_toBottomOf="@id/item_book_marked_list_iv"
+        app:layout_constraintBottom_toBottomOf="@id/gl_bottom"
+        android:visibility="gone"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
