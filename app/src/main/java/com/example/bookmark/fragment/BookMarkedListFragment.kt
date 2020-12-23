@@ -30,7 +30,6 @@ import com.example.bookmark.viewmodels.BookMarkViewModelFactory
 class BookMarkedListFragment : Fragment(), View.OnClickListener {
     lateinit var recyclerView: RecyclerView
     lateinit var adapter: BookMarkedListAdapter
-    private val newBookMarkRequestCode = 1
     private val bookMarkViewModel: BookMarkViewModel by viewModels{
         BookMarkViewModelFactory((activity?.application as BookMarkApplication).repository)
         //context?.applicationContext  activity?.application과 의 차이점에 대해서 찾아보자

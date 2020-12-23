@@ -109,7 +109,7 @@
         android:id="@+id/item_book_marked_list_tv_msg"
         android:layout_width="0dp"
         android:layout_height="20dp"
-        android:text="@{bookMark.timeStamp}"
+        android:text="1212313"
         android:textSize="13sp"
         android:textColor="@color/medium_gray"
         android:textAlignment="center"

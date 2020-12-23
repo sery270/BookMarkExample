@@ -27,12 +27,8 @@ class BookMarkViewModel(private val repository: BookMarkRepository) : ViewModel(
         repository.insert(bookMark)
     }
 
-    var product = Product(41,
-                    "해남",2.0,
-                    "https://gccompany.co.kr/App/thumbnail/thumb_img_41.jpg", description = Description("https://gccompany.co.kr/App/image/img_41.jpg",
-                    "모텔, 호텔, 리조트, 펜션, 캠핑, 글램핑, 게스트하우스, 액티비티, 방탈출, VR, 워터파크, 아웃도어",
-                    30000)
-    )
+    lateinit var product: Product
+
 
 
 }

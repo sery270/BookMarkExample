@@ -21,5 +21,5 @@ class BookMark( // -> Product + timestamp
     @ColumnInfo(name = "price") val price: Int,
 
     // 클라에서 생성할 값
-    @ColumnInfo(name = "timeStamp") val timeStamp: Int
+    @ColumnInfo(name = "timeStamp") val timeStamp: Long
 )

@@ -33,8 +33,10 @@ import retrofit2.Response
 class DefaultListFragment : Fragment() {
     lateinit var recyclerView: RecyclerView
     lateinit var adapter: DefaultListAdapter
-    private lateinit var product: Product
     private lateinit var bookMark: BookMark
+    companion object{
+        lateinit var product: Product
+    }
     private var page = 1
     private var init = true
     var pageData = mutableListOf<Product>()
@@ -98,6 +100,7 @@ class DefaultListFragment : Fragment() {
         })
 
         // item click listener -> navigate to detailFG
+        // 아이템을 클릭하면 해당 아이템의 상세뷰로 이동
         adapter.setItemClickListener(object : DefaultListAdapter.ItemClickListener{
             override fun onClick(
                 view: View,
@@ -105,6 +108,7 @@ class DefaultListFragment : Fragment() {
                 data: Product,
                 datas: MutableList<Product>
             ) {
+                product = data
                 bookMarkViewModel.product = data
                 // 아이템을 선택했다면 step2로 이동
                 val action = R.id.action_view_pager_fragment_to_detail_fragment
@@ -112,6 +116,7 @@ class DefaultListFragment : Fragment() {
             }
         })
 
+        // 아이템의 하트를 누르면 즐겨찾기 삽입
         adapter.setBookMarkClickListener(object : DefaultListAdapter.ItemClickListener{
             override fun onClick(
                 view: View,
@@ -127,7 +132,7 @@ class DefaultListFragment : Fragment() {
                     data.description.imagePath,
                     data.description.subject,
                     data.description.price,
-                    121214
+                    System.currentTimeMillis()
                 )
                 bookMarkViewModel.insert(bookMark)
 
