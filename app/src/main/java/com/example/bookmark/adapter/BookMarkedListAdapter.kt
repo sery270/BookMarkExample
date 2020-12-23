@@ -30,6 +30,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.coroutines.coroutineContext
 
 class BookMarkedListAdapter :
@@ -76,7 +78,7 @@ class BookMarkedListAdapter :
                 isBookMarked.isChecked = (itemView.context.applicationContext as BookMarkApplication).repository.isBookMarked(bookMark.id)
             }
             // msg
-            msg.text = "201214 2324에 찜 하셨어요!"
+            msg.text = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date(bookMark.timeStamp)) +  "에 찜 하셨어요!"
 
 
         }
