@@ -1,5 +1,6 @@
 package com.example.bookmark.adapter
 
+import android.app.Application
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -16,8 +18,19 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.bookmark.api.Product
 import com.example.bookmark.data.BookMark
+import com.example.bookmark.data.BookMarkApplication
+import com.example.bookmark.data.BookMarkDAO
+import com.example.bookmark.data.BookMarkRepository
+import com.example.bookmark.data.BookMarkRoomDatabase.Companion.getDatabase
 import com.example.bookmark.databinding.ItemBookMarkedListBinding
 import com.example.bookmark.fragment.ViewPagerFragment
+import com.example.bookmark.viewmodels.BookMarkViewModel
+import com.example.bookmark.viewmodels.BookMarkViewModelFactory
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import kotlin.coroutines.coroutineContext
 
 class BookMarkedListAdapter :
     ListAdapter<BookMark, BookMarkedListAdapter.BookMarkViewHolder>(BookMarksComparator()) {
@@ -59,7 +72,9 @@ class BookMarkedListAdapter :
             // rate
             rate.text = bookMark.rate.toString()
             // bookMark
-            isBookMarked.isChecked = true
+            GlobalScope.launch {
+                isBookMarked.isChecked = (itemView.context.applicationContext as BookMarkApplication).repository.isBookMarked(bookMark.id)
+            }
             // msg
             msg.text = "201214 2324에 찜 하셨어요!"
 

@@ -87,7 +87,7 @@
 
         <TextView
             android:id="@+id/item_book_marked_list_tv_rate"
-            android:text="@{bookMark.rate}"
+            android:text="2.0"
             android:textStyle="normal"
             android:textColor="@color/medium_gray"
             android:textSize="17sp"

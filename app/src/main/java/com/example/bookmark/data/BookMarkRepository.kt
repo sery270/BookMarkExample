@@ -35,7 +35,7 @@ class BookMarkRepository(private val bookMarkDao: BookMarkDAO) {
         bookMarkDao.insert(bookMark)
     }
 
-    suspend fun isBookMarked(id: Int): Boolean {
+    fun isBookMarked(id: Int): Boolean {
         return bookMarkDao.isBookMarked(id) != null
     }
 

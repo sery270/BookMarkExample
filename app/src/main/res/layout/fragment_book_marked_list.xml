@@ -1,20 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/light_grey"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".fragment.BookMarkedListFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/book_marked_list_fg_rv"
+    <data>
+        <variable
+            name="BookMarkViewModel"
+            type="com.example.bookmark.viewmodels.BookMarkViewModel" />
+        <variable
+            name="BookMarkedListFragment"
+            type="com.example.bookmark.fragment.BookMarkedListFragment" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/item_book_marked_list"
-        android:paddingHorizontal="20dp"/>
-</FrameLayout>
+        android:background="@color/light_grey"
+        >
+
+        <LinearLayout
+            android:id="@+id/book_marked_list_fg_ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@id/book_marked_list_fg_rv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/book_marked_list_fg_asc_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="3dp"
+                android:background="@drawable/item_bg"
+                android:padding="5dp"
+                android:text="등록 오름차순"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/book_marked_list_fg_desc_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="3dp"
+                android:background="@drawable/item_bg"
+                android:padding="5dp"
+                android:text="등록 내림차순"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/book_marked_list_fg_asc_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="3dp"
+                android:background="@drawable/item_bg"
+                android:padding="5dp"
+                android:text="평점 오름차순"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/book_marked_list_fg_desc_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="3dp"
+                android:background="@drawable/item_bg"
+                android:padding="5dp"
+                android:text="평점 내림차순"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/book_marked_list_fg_rv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:paddingHorizontal="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/book_marked_list_fg_ll"
+            tools:listitem="@layout/item_book_marked_list" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,9 +1,8 @@
 package com.example.bookmark.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import android.util.Log
+import android.view.View
+import androidx.lifecycle.*
 import com.example.bookmark.data.BookMark
 import com.example.bookmark.data.BookMarkRepository
 import kotlinx.coroutines.launch
@@ -25,5 +24,30 @@ class BookMarkViewModel(private val repository: BookMarkRepository) : ViewModel(
     fun insert(bookMark: BookMark) = viewModelScope.launch {
         repository.insert(bookMark)
     }
+
+    fun ascRate(view: View){
+        Log.e("ascRate ! ",
+            "dddddd" )
+//        bookMarkViewModel.ascRate.observe(owner = viewLifecycleOwner) { bookMark ->
+//            bookMark.let { adapter.submitList(it) }
+//        }
+    }
+//    fun descRate(view: View){
+//        Log.e("descRate ! ",
+//            "dddddd" )
+//        bookMarkViewModel.descRate.observe(owner = viewLifecycleOwner) { bookMark ->
+//            bookMark.let { adapter.submitList(it) }
+//        }
+//    }
+//    fun ascTime(view: View){
+//        bookMarkViewModel.ascTimeStamp.observe(owner = viewLifecycleOwner) { bookMark ->
+//            bookMark.let { adapter.submitList(it) }
+//        }
+//    }
+//    fun descTime(view: View){
+//        bookMarkViewModel.descTimeStamp.observe(owner = viewLifecycleOwner) { bookMark ->
+//            bookMark.let { adapter.submitList(it) }
+//        }
+//    }
 
 }

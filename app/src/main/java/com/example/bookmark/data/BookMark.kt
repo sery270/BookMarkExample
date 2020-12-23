@@ -10,7 +10,7 @@ class BookMark(
     // api에서 얻어오는 값
         @PrimaryKey @ColumnInfo(name = "id") val id: Int,
         @ColumnInfo(name = "name") val name: String,
-        @ColumnInfo(name = "rate") val rate: String,
+        @ColumnInfo(name = "rate") val rate: Double,
         @ColumnInfo(name = "thumbnail") val thumbnail: String,
         @ColumnInfo(name = "imagePath") val imagePath: String,
         @ColumnInfo(name = "subject") val subject: String,
