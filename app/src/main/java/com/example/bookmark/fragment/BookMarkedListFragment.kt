@@ -1,7 +1,9 @@
 package com.example.bookmark.fragment
 
 import android.database.DatabaseUtils
+import android.graphics.Color
 import android.os.Bundle
+import android.text.SpannableStringBuilder
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -55,7 +57,7 @@ class BookMarkedListFragment : Fragment(), View.OnClickListener {
         adapter = BookMarkedListAdapter()
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this.context)
-        recyclerView.addItemDecoration(ItemDecoration())
+//        recyclerView.addItemDecoration(ItemDecoration())
 
         bookMarkViewModel.ascRate.observe(owner = viewLifecycleOwner) { bookMark ->
             bookMark.let { adapter.submitList(it) }
@@ -69,25 +71,29 @@ class BookMarkedListFragment : Fragment(), View.OnClickListener {
 //        bookMarkViewModel.insert(word)
     }
 
-    override fun onClick (view: View){
-        when(view.id){
-            R.id.book_marked_list_fg_asc_rate -> {ascRate()}
-            R.id.book_marked_list_fg_desc_rate -> {descRate()}
-            R.id.book_marked_list_fg_asc_time -> {ascTime()}
-            R.id.book_marked_list_fg_desc_time -> {descTime()}
+    override fun onClick (v: View){
+        view?.findViewById<TextView>(R.id.book_marked_list_fg_desc_rate)?.setTextColor(resources.getColor(R.color.medium_gray))
+        view?.findViewById<TextView>(R.id.book_marked_list_fg_asc_rate)?.setTextColor(resources.getColor(R.color.medium_gray))
+        view?.findViewById<TextView>(R.id.book_marked_list_fg_desc_time)?.setTextColor(resources.getColor(R.color.medium_gray))
+        view?.findViewById<TextView>(R.id.book_marked_list_fg_asc_time)?.setTextColor(resources.getColor(R.color.medium_gray))
+        when(v.id){
+            R.id.book_marked_list_fg_asc_rate -> {ascRate()
+                (v as TextView).setTextColor(resources.getColor(R.color.young_red))}
+            R.id.book_marked_list_fg_desc_rate -> {descRate()
+                (v as TextView).setTextColor(resources.getColor(R.color.young_red))}
+            R.id.book_marked_list_fg_asc_time -> {ascTime()
+                (v as TextView).setTextColor(resources.getColor(R.color.young_red))}
+            R.id.book_marked_list_fg_desc_time -> {descTime()
+                (v as TextView).setTextColor(resources.getColor(R.color.young_red))}
         }
 
     }
     private fun ascRate(){
-        Log.e("ascRate ! ",
-                "dddddd" )
         bookMarkViewModel.ascRate.observe(owner = viewLifecycleOwner) { bookMark ->
             bookMark.let { adapter.submitList(it) }
         }
     }
     private fun descRate(){
-        Log.e("descRate ! ",
-            "dddddd" )
         bookMarkViewModel.descRate.observe(owner = viewLifecycleOwner) { bookMark ->
             bookMark.let { adapter.submitList(it) }
         }

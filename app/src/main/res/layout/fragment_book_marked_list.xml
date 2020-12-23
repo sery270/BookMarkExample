@@ -39,6 +39,7 @@
                 android:background="@drawable/item_bg"
                 android:padding="5dp"
                 android:text="등록 오름차순"
+                android:textColor="@color/medium_gray"
                 android:textStyle="bold" />
 
             <TextView
@@ -49,6 +50,7 @@
                 android:background="@drawable/item_bg"
                 android:padding="5dp"
                 android:text="등록 내림차순"
+                android:textColor="@color/medium_gray"
                 android:textStyle="bold" />
 
             <TextView
@@ -59,6 +61,7 @@
                 android:background="@drawable/item_bg"
                 android:padding="5dp"
                 android:text="평점 오름차순"
+                android:textColor="@color/medium_gray"
                 android:textStyle="bold" />
 
             <TextView
@@ -69,6 +72,7 @@
                 android:background="@drawable/item_bg"
                 android:padding="5dp"
                 android:text="평점 내림차순"
+                android:textColor="@color/medium_gray"
                 android:textStyle="bold" />
 
         </LinearLayout>
