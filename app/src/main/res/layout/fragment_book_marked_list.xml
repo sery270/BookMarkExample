@@ -6,9 +6,6 @@
 
     <data>
         <variable
-            name="BookMarkViewModel"
-            type="com.example.bookmark.viewmodels.BookMarkViewModel" />
-        <variable
             name="BookMarkedListFragment"
             type="com.example.bookmark.fragment.BookMarkedListFragment" />
     </data>

@@ -27,6 +27,10 @@ class BookMarkViewModel(private val repository: BookMarkRepository) : ViewModel(
         repository.insert(bookMark)
     }
 
+    fun deleteAll(id: Int) = viewModelScope.launch {
+        repository.deleteAll(id)
+    }
+
     lateinit var product: Product
 
 

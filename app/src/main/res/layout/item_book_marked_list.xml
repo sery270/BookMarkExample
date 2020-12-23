@@ -97,8 +97,8 @@
 
     <CheckBox
         android:id="@+id/item_book_marked_list_btn_book_mark"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
         android:button="@null"
         android:background="@drawable/book_mark_selector"
         app:layout_constraintEnd_toEndOf="@id/gl_right"

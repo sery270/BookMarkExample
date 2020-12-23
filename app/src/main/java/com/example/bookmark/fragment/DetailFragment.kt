@@ -75,17 +75,27 @@ class DetailFragment : Fragment() {
 
         // 아이템의 하트를 누르면 즐겨찾기 삽입
         isBookMarked.setOnClickListener {
-            bookMark = BookMark(
-                product.id,
-                product.name,
-                product.rate,
-                product.thumbnail,
-                product.description.imagePath,
-                product.description.subject,
-                product.description.price,
-                System.currentTimeMillis()
-            )
-            bookMarkViewModel.insert(bookMark)
+            if (!isBookMarked.isChecked) {
+                GlobalScope.launch {
+                    bookMarkViewModel.deleteAll(product.id)
+                    // default list는 뷰 모델 아니므로, 적어줘야함
+                    isBookMarked.isChecked = (view.context.applicationContext as BookMarkApplication).repository.isBookMarked(
+                        product.id)
+                }
+
+            } else {
+                bookMark = BookMark(
+                    product.id,
+                    product.name,
+                    product.rate,
+                    product.thumbnail,
+                    product.description.imagePath,
+                    product.description.subject,
+                    product.description.price,
+                    System.currentTimeMillis()
+                )
+                bookMarkViewModel.insert(bookMark)
+            }
         }
 
 

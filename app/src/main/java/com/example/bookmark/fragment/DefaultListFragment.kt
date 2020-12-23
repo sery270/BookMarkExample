@@ -25,6 +25,8 @@ import com.example.bookmark.data.BookMarkApplication
 import com.example.bookmark.util.ItemDecoration
 import com.example.bookmark.viewmodels.BookMarkViewModel
 import com.example.bookmark.viewmodels.BookMarkViewModelFactory
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -35,13 +37,15 @@ class DefaultListFragment : Fragment() {
     lateinit var recyclerView: RecyclerView
     lateinit var adapter: DefaultListAdapter
     private lateinit var bookMark: BookMark
-    companion object{
+
+    companion object {
         lateinit var product: Product
     }
+
     private var page = 1
     private var init = true
     var pageData = mutableListOf<Product>()
-    private val bookMarkViewModel: BookMarkViewModel by viewModels{
+    private val bookMarkViewModel: BookMarkViewModel by viewModels {
         BookMarkViewModelFactory((activity?.application as BookMarkApplication).repository)
     }
 
@@ -69,10 +73,10 @@ class DefaultListFragment : Fragment() {
         recyclerView.addItemDecoration(ItemDecoration())
 
         // recyclerView data init
-        if(init){
+        if (init) {
             init = false
             getDefaultList(page)
-        }else{
+        } else {
             adapter.datas = pageData
             adapter.notifyDataSetChanged()
 //            Log.e("pageData ! ",
@@ -80,19 +84,20 @@ class DefaultListFragment : Fragment() {
         }
 
 
-
         // recyclerView paging
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
-                var lastVisibleItemPosition =  (recyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
-                var itemTotalCount = (recyclerView.layoutManager as LinearLayoutManager).itemCount - 1
+                var lastVisibleItemPosition =
+                    (recyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                var itemTotalCount =
+                    (recyclerView.layoutManager as LinearLayoutManager).itemCount - 1
 //                Log.e("스크롤 중 ! ",
 //                    "lastVisibleItemPosition: ${lastVisibleItemPosition.toString()} " +
 //                            "itemTotalCount : ${itemTotalCount.toString()} " +
 //                            "page : ${page.toString()} " )
-                if (lastVisibleItemPosition == itemTotalCount && page < 3){
+                if (lastVisibleItemPosition == itemTotalCount && page < 3) {
                     page++
                     getDefaultList(page)
                 }
@@ -102,7 +107,7 @@ class DefaultListFragment : Fragment() {
 
         // item click listener -> navigate to detailFG
         // 아이템을 클릭하면 해당 아이템의 상세뷰로 이동
-        adapter.setItemClickListener(object : DefaultListAdapter.ItemClickListener{
+        adapter.setItemClickListener(object : DefaultListAdapter.ItemClickListener {
             override fun onClick(
                 view: View,
                 position: Int,
@@ -117,34 +122,43 @@ class DefaultListFragment : Fragment() {
             }
         })
 
-        // 아이템의 하트를 누르면 즐겨찾기 삽입
-        adapter.setBookMarkClickListener(object : DefaultListAdapter.ItemClickListener{
+        // 아이템의 하트를 눌러 즐겨찾기 삽입 or 삭제
+        adapter.setBookMarkClickListener(object : DefaultListAdapter.ItemClickListener {
             override fun onClick(
                 view: View,
                 position: Int,
                 data: Product,
                 datas: MutableList<Product>
             ) {
-                bookMark = BookMark(
-                    data.id,
-                    data.name,
-                    data.rate,
-                    data.thumbnail,
-                    data.description.imagePath,
-                    data.description.subject,
-                    data.description.price,
-                    System.currentTimeMillis()
-                )
-                bookMarkViewModel.insert(bookMark)
+                val isBookMarked = view.findViewById<CheckBox>(R.id.item_list_btn_book_mark)
+                if (!isBookMarked.isChecked) {
+                    GlobalScope.launch {
+                        bookMarkViewModel.deleteAll(data.id)
+                        // default list는 뷰 모델 아니므로, 적어줘야함
+                        isBookMarked.isChecked = (view.context.applicationContext as BookMarkApplication).repository.isBookMarked(data.id)
+                    }
 
+                } else {
+                    bookMark = BookMark(
+                        data.id,
+                        data.name,
+                        data.rate,
+                        data.thumbnail,
+                        data.description.imagePath,
+                        data.description.subject,
+                        data.description.price,
+                        System.currentTimeMillis()
+                    )
+                    bookMarkViewModel.insert(bookMark)
+                }
             }
 
         })
     }
 
-    private fun getDefaultList(page: Int){
+    private fun getDefaultList(page: Int) {
         val call: Call<ResponseProductInfo> = RequestToServer.service.requestAccommodationInfo(page)
-        call.enqueue(object : Callback<ResponseProductInfo>{
+        call.enqueue(object : Callback<ResponseProductInfo> {
             // 통신 자체 실패 -> 클라 잘못
             override fun onFailure(
                 call: Call<ResponseProductInfo>,
@@ -172,11 +186,11 @@ class DefaultListFragment : Fragment() {
                         } else {
                             //if 서버 통신 성공 && 결과 있음
                             // paging 처리
-                            if( page == 1){
+                            if (page == 1) {
                                 pageData = body.data.product
                                 adapter.datas = pageData
                                 adapter.notifyDataSetChanged()
-                            }else{
+                            } else {
                                 pageData.addAll(body.data.product)
                                 adapter.datas = pageData
                                 adapter.notifyDataSetChanged()

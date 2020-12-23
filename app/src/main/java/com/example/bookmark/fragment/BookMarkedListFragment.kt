@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.ListAdapter
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
@@ -20,11 +21,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.bookmark.DataBinderMapperImpl
 import com.example.bookmark.R
 import com.example.bookmark.adapter.BookMarkedListAdapter
+import com.example.bookmark.adapter.DefaultListAdapter
+import com.example.bookmark.api.Product
+import com.example.bookmark.data.BookMark
 import com.example.bookmark.data.BookMarkApplication
 import com.example.bookmark.databinding.ItemBookMarkedListBinding
 import com.example.bookmark.util.ItemDecoration
 import com.example.bookmark.viewmodels.BookMarkViewModel
 import com.example.bookmark.viewmodels.BookMarkViewModelFactory
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 class BookMarkedListFragment : Fragment(), View.OnClickListener {
@@ -62,12 +68,37 @@ class BookMarkedListFragment : Fragment(), View.OnClickListener {
             bookMark.let { adapter.submitList(it) }
         }
 
+        // 아이템의 하트를 눌러 즐겨찾기 삽입 or 삭제
+        adapter.setBookMarkClickListener(object : BookMarkedListAdapter.ItemClickListener {
+            override fun onClick(view: View, bookMark: BookMark) {
+                val isBookMarked = view.findViewById<CheckBox>(R.id.item_book_marked_list_btn_book_mark)
+                if (!isBookMarked.isChecked) {
+                    bookMarkViewModel.deleteAll(bookMark.id)
+//                    DefaultListAdapter(view.context).notifyDataSetChanged()
+                } else {
+                    val bm = BookMark(
+                        bookMark.id,
+                        bookMark.name,
+                        bookMark.rate,
+                        bookMark.thumbnail,
+                        bookMark.imagePath,
+                        bookMark.subject,
+                        bookMark.price,
+                        System.currentTimeMillis()
+                    )
+                    bookMarkViewModel.insert(bm)
+//                    DefaultListAdapter(view.context).notifyDataSetChanged()
+                }
+            }
+        })
+
         view.findViewById<TextView>(R.id.book_marked_list_fg_desc_time).setOnClickListener(this)
         view.findViewById<TextView>(R.id.book_marked_list_fg_asc_time).setOnClickListener(this)
         view.findViewById<TextView>(R.id.book_marked_list_fg_desc_rate).setOnClickListener(this)
         view.findViewById<TextView>(R.id.book_marked_list_fg_asc_rate).setOnClickListener(this)
     }
 
+    // 정렬버튼
     override fun onClick (v: View){
         view?.findViewById<TextView>(R.id.book_marked_list_fg_desc_rate)?.setTextColor(resources.getColor(R.color.medium_gray))
         view?.findViewById<TextView>(R.id.book_marked_list_fg_asc_rate)?.setTextColor(resources.getColor(R.color.medium_gray))

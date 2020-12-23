@@ -36,14 +36,6 @@ import kotlin.coroutines.coroutineContext
 
 class BookMarkedListAdapter :
     ListAdapter<BookMark, BookMarkedListAdapter.BookMarkViewHolder>(BookMarksComparator()) {
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookMarkViewHolder {
-//        return BookMarkViewHolder(ItemBookMarkedListBinding.inflate(LayoutInflater.from(parent.context),parent))
-//    }
-//
-//    override fun onBindViewHolder(holder: BookMarkViewHolder, position: Int) {
-//        val bookMark = getItem(position)
-//        (holder as BookMarkViewHolder).bind(bookMark)
-//    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookMarkViewHolder {
         return BookMarkViewHolder.create(parent)
@@ -52,6 +44,12 @@ class BookMarkedListAdapter :
     override fun onBindViewHolder(holder: BookMarkViewHolder, position: Int) {
         val current = getItem(position)
         holder.bind(current)
+
+        //view에 onClickListener를 달고, 그 안에서 직접 만든 itemClickListener를 연결시킨다
+        holder.itemView.findViewById<CheckBox>(R.id.item_book_marked_list_btn_book_mark).setOnClickListener {
+            bookMarkClickListener.onClick(it,current)
+            holder.bind(current)
+        }
     }
 
     class BookMarkViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -90,40 +88,6 @@ class BookMarkedListAdapter :
                 return BookMarkViewHolder(view)
             }
         }
-
-//    class BookMarkViewHolder(
-//        private val binding: ItemBookMarkedListBinding
-//    ) : RecyclerView.ViewHolder(binding.root) {
-//        init {
-//            binding.setClickListener {
-//                binding.bookMark?.let { bookMark ->
-//                    navigateToDetail(bookMark, it)
-//                }
-//            }
-//        }
-//
-//        private fun navigateToDetail(
-//            bookMark: BookMark,
-//            view: View
-//        ) {
-//
-//            val direction = R.id.action_view_pager_fragment_to_detail_fragment
-////            val direction = ViewPagerFragmentD
-//            view.findNavController().navigate(direction)
-//        }
-//
-//        fun bind(item: BookMark) {
-//                        // thumbnail
-//            Glide.with(itemView).load(item.thumbnail).into(itemView.findViewById<ImageView>(R.id.item_book_marked_list_iv))
-//            binding.apply {
-//                bookMark = item
-//                executePendingBindings()
-//            }
-//        }
-//
-//
-//
-//    }
     }
 
     private class BookMarksComparator : DiffUtil.ItemCallback<BookMark>() {
@@ -135,14 +99,19 @@ class BookMarkedListAdapter :
             return oldItem.id == newItem.id
         }
     }
+
+
+    //클릭 인터페이스 정의
+    interface ItemClickListener{
+        fun onClick(view: View, bookMark: BookMark)
+    }
+
+    //클릭리스너 선언
+    private lateinit var bookMarkClickListener: ItemClickListener
+
+    fun setBookMarkClickListener(bookMarkClickListener: ItemClickListener) {
+        this.bookMarkClickListener = bookMarkClickListener
+
+
+    }
 }
-
-
-//@BindingAdapter("imageFromUrl")
-//fun bindImageFromUrl(view: ImageView, imageUrl: String?) {
-//    if (!imageUrl.isNullOrEmpty()) {
-//        Glide.with(view.context)
-//            .load(imageUrl)
-//            .into(view)
-//    }
-//}

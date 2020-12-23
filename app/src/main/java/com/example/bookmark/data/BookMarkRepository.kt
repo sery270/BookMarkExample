@@ -26,6 +26,12 @@ class BookMarkRepository(private val bookMarkDao: BookMarkDAO) {
         return bookMarkDao.isBookMarked(id) != null
     }
 
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun deleteAll(id: Int) {
+        bookMarkDao.deleteAll(id)
+    }
+
 
 
 

@@ -26,7 +26,7 @@ public abstract class BookMarkRoomDatabase : RoomDatabase() {
 
         suspend fun populateDatabase(bookMarkDao: BookMarkDAO) {
             // Delete all content here.
-            bookMarkDao.deleteAll()
+//            bookMarkDao.deleteAll()
         }
     }
 
