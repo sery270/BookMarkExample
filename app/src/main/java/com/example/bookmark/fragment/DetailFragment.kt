@@ -73,14 +73,11 @@ class DetailFragment : Fragment() {
             isBookMarked.isChecked = (view.context.applicationContext as BookMarkApplication).repository.isBookMarked(product.id)
         }
 
-        // 아이템의 하트를 누르면 즐겨찾기 삽입
+        // 하트를 누르면 즐겨찾기 삽입 및 삭제
         isBookMarked.setOnClickListener {
             if (!isBookMarked.isChecked) {
                 GlobalScope.launch {
                     bookMarkViewModel.deleteAll(product.id)
-                    // default list는 뷰 모델 아니므로, 적어줘야함
-                    isBookMarked.isChecked = (view.context.applicationContext as BookMarkApplication).repository.isBookMarked(
-                        product.id)
                 }
 
             } else {
