@@ -27,6 +27,8 @@ class DefaultListFragment : Fragment() {
     lateinit var recyclerView: RecyclerView
     lateinit var adapter: DefaultListAdapter
     private var page = 1
+    private var init = true
+    var pageData = mutableListOf<Product>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +45,7 @@ class DefaultListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         // recyclerView init
         recyclerView = view.findViewById<RecyclerView>(R.id.list_fg_rv)
         adapter = DefaultListAdapter(view.context)
@@ -51,7 +54,17 @@ class DefaultListFragment : Fragment() {
         recyclerView.addItemDecoration(ItemDecoration())
 
         // recyclerView data init
-        getDefaultList(view, page)
+        if(init){
+            init = false
+            getDefaultList(page)
+        }else{
+            adapter.datas = pageData
+            adapter.notifyDataSetChanged()
+//            Log.e("pageData ! ",
+//                "${pageData[0].name}" )
+        }
+
+
 
         // recyclerView paging
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -60,23 +73,40 @@ class DefaultListFragment : Fragment() {
 
                 var lastVisibleItemPosition =  (recyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
                 var itemTotalCount = (recyclerView.layoutManager as LinearLayoutManager).itemCount - 1
-                Log.e("스크롤 중 ! ",
-                    "lastVisibleItemPosition: ${lastVisibleItemPosition.toString()} " +
-                            "itemTotalCount : ${itemTotalCount.toString()}" +
-                            "page : ${page.toString()}" )
+//                Log.e("스크롤 중 ! ",
+//                    "lastVisibleItemPosition: ${lastVisibleItemPosition.toString()} " +
+//                            "itemTotalCount : ${itemTotalCount.toString()} " +
+//                            "page : ${page.toString()} " )
                 if (lastVisibleItemPosition == itemTotalCount && page < 3){
                     page++
-                    getDefaultList(view, page)
+                    getDefaultList(page)
                 }
             }
 
         })
 
+        // item click listener -> navigate to detailFG
+        adapter.setItemClickListener(object : DefaultListAdapter.ItemClickListener{
+            override fun onClick(
+                view: View,
+                position: Int,
+                data: Product,
+                datas: MutableList<Product>
+            ) {
+                Log.d("SSS","${position}번 리스트 선택")
+//                                    title = view.findViewById<TextView>(R.id.item_writing_sentence_book_result_tv_title).text.toString()
+//                                    author = view.findViewById<TextView>(R.id.item_writing_sentence_book_result_tv_author).text.toString()
+//                                    publisher = view.findViewById<TextView>(R.id.item_writing_sentence_book_result_tv_publisher).text.toString()
 
+                // 아이템을 선택했다면 step2로 이동
+                val action = R.id.action_view_pager_fragment_to_detail_fragment
+                view.findNavController().navigate(action)
+            }
+        })
 
     }
 
-    private fun getDefaultList(view: View, page: Int){
+    private fun getDefaultList(page: Int){
         val call: Call<ResponseProductInfo> = RequestToServer.service.requestAccommodationInfo(page)
         call.enqueue(object : Callback<ResponseProductInfo>{
             // 통신 자체 실패 -> 클라 잘못
@@ -110,31 +140,14 @@ class DefaultListFragment : Fragment() {
                             // paging 처리
                             // Integer.parseInt(page)
                             if( page == 1){
-                                adapter.datas = body.data.product
+                                pageData = body.data.product
+                                adapter.datas = pageData
                                 adapter.notifyDataSetChanged()
                             }else{
-                                adapter.datas.addAll(body.data.product)
+                                pageData.addAll(body.data.product)
+                                adapter.datas = pageData
                                 adapter.notifyDataSetChanged()
                             }
-
-                            // 리사이클러뷰 클릭 리스너
-                            adapter.setItemClickListener(object : DefaultListAdapter.ItemClickListener{
-                                override fun onClick(
-                                    view: View,
-                                    position: Int,
-                                    data: Product,
-                                    datas: MutableList<Product>
-                                ) {
-                                    Log.d("SSS","${position}번 리스트 선택")
-//                                    title = view.findViewById<TextView>(R.id.item_writing_sentence_book_result_tv_title).text.toString()
-//                                    author = view.findViewById<TextView>(R.id.item_writing_sentence_book_result_tv_author).text.toString()
-//                                    publisher = view.findViewById<TextView>(R.id.item_writing_sentence_book_result_tv_publisher).text.toString()
-
-                                    // 아이템을 선택했다면 step2로 이동
-                                    val action = R.id.action_view_pager_fragment_to_detail_fragment
-                                    view.findNavController().navigate(action)
-                                }
-                            })
                         }
                     }
                 } else {
