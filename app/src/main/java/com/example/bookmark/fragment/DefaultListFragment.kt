@@ -7,7 +7,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +20,11 @@ import com.example.bookmark.adapter.DefaultListAdapter
 import com.example.bookmark.api.Product
 import com.example.bookmark.api.RequestToServer
 import com.example.bookmark.api.ResponseProductInfo
+import com.example.bookmark.data.BookMark
+import com.example.bookmark.data.BookMarkApplication
 import com.example.bookmark.util.ItemDecoration
+import com.example.bookmark.viewmodels.BookMarkViewModel
+import com.example.bookmark.viewmodels.BookMarkViewModelFactory
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,9 +33,14 @@ import retrofit2.Response
 class DefaultListFragment : Fragment() {
     lateinit var recyclerView: RecyclerView
     lateinit var adapter: DefaultListAdapter
+    private lateinit var product: Product
+    private lateinit var bookMark: BookMark
     private var page = 1
     private var init = true
     var pageData = mutableListOf<Product>()
+    private val bookMarkViewModel: BookMarkViewModel by viewModels{
+        BookMarkViewModelFactory((activity?.application as BookMarkApplication).repository)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,17 +105,35 @@ class DefaultListFragment : Fragment() {
                 data: Product,
                 datas: MutableList<Product>
             ) {
-                Log.d("SSS","${position}번 리스트 선택")
-//                                    title = view.findViewById<TextView>(R.id.item_writing_sentence_book_result_tv_title).text.toString()
-//                                    author = view.findViewById<TextView>(R.id.item_writing_sentence_book_result_tv_author).text.toString()
-//                                    publisher = view.findViewById<TextView>(R.id.item_writing_sentence_book_result_tv_publisher).text.toString()
-
+                bookMarkViewModel.product = data
                 // 아이템을 선택했다면 step2로 이동
                 val action = R.id.action_view_pager_fragment_to_detail_fragment
                 view.findNavController().navigate(action)
             }
         })
 
+        adapter.setBookMarkClickListener(object : DefaultListAdapter.ItemClickListener{
+            override fun onClick(
+                view: View,
+                position: Int,
+                data: Product,
+                datas: MutableList<Product>
+            ) {
+                bookMark = BookMark(
+                    data.id,
+                    data.name,
+                    data.rate,
+                    data.thumbnail,
+                    data.description.imagePath,
+                    data.description.subject,
+                    data.description.price,
+                    121214
+                )
+                bookMarkViewModel.insert(bookMark)
+
+            }
+
+        })
     }
 
     private fun getDefaultList(page: Int){
@@ -135,10 +165,7 @@ class DefaultListFragment : Fragment() {
 
                         } else {
                             //if 서버 통신 성공 && 결과 있음
-                            // rv 동작 게시
-
                             // paging 처리
-                            // Integer.parseInt(page)
                             if( page == 1){
                                 pageData = body.data.product
                                 adapter.datas = pageData

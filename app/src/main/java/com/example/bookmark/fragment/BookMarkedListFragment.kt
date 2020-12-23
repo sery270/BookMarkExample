@@ -67,8 +67,6 @@ class BookMarkedListFragment : Fragment(), View.OnClickListener {
         view.findViewById<TextView>(R.id.book_marked_list_fg_asc_time).setOnClickListener(this)
         view.findViewById<TextView>(R.id.book_marked_list_fg_desc_rate).setOnClickListener(this)
         view.findViewById<TextView>(R.id.book_marked_list_fg_asc_rate).setOnClickListener(this)
-
-//        bookMarkViewModel.insert(word)
     }
 
     override fun onClick (v: View){

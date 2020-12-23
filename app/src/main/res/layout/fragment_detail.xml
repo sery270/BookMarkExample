@@ -52,11 +52,12 @@
         app:layout_constraintStart_toStartOf="@id/gl_left"
         app:layout_constraintTop_toTopOf="@id/gl_top"/>
 
-    <ImageView
+    <CheckBox
         android:id="@+id/detail_fg_btn_book_mark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_baseline_favorite_border_24"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:button="@null"
+        android:background="@drawable/book_mark_selector"
         app:layout_constraintEnd_toEndOf="@id/gl_right"
         app:layout_constraintTop_toTopOf="@id/gl_top"/>
 

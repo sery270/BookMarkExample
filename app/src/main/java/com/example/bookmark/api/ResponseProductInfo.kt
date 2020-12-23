@@ -14,14 +14,13 @@ data class Data(
 data class Product(
     val id: Int,
     val name: String,
+    val rate: Double,
     val thumbnail: String,
-    val rate: Float,
     val description: Description
 )
 
 data class Description(
-    val price: Int,
+    val imagePath: String,
     val subject: String,
-    val imagePath: String
-
+    val price: Int
 )
