@@ -76,10 +76,7 @@ class DetailFragment : Fragment() {
         // 하트를 누르면 즐겨찾기 삽입 및 삭제
         isBookMarked.setOnClickListener {
             if (!isBookMarked.isChecked) {
-                GlobalScope.launch {
-                    bookMarkViewModel.deleteAll(product.id)
-                }
-
+                bookMarkViewModel.deleteAll(product.id)
             } else {
                 bookMark = BookMark(
                     product.id,

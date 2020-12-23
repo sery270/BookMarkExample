@@ -74,7 +74,6 @@ class BookMarkedListFragment : Fragment(), View.OnClickListener {
                 val isBookMarked = view.findViewById<CheckBox>(R.id.item_book_marked_list_btn_book_mark)
                 if (!isBookMarked.isChecked) {
                     bookMarkViewModel.deleteAll(bookMark.id)
-//                    DefaultListAdapter(view.context).notifyDataSetChanged()
                 } else {
                     val bm = BookMark(
                         bookMark.id,
@@ -87,7 +86,6 @@ class BookMarkedListFragment : Fragment(), View.OnClickListener {
                         System.currentTimeMillis()
                     )
                     bookMarkViewModel.insert(bm)
-//                    DefaultListAdapter(view.context).notifyDataSetChanged()
                 }
             }
         })

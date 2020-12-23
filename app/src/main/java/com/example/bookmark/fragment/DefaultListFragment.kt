@@ -132,12 +132,7 @@ class DefaultListFragment : Fragment() {
             ) {
                 val isBookMarked = view.findViewById<CheckBox>(R.id.item_list_btn_book_mark)
                 if (!isBookMarked.isChecked) {
-                    GlobalScope.launch {
-                        bookMarkViewModel.deleteAll(data.id)
-                        // default list는 뷰 모델 아니므로, 적어줘야함
-                        isBookMarked.isChecked = (view.context.applicationContext as BookMarkApplication).repository.isBookMarked(data.id)
-                    }
-
+                    bookMarkViewModel.deleteAll(data.id)
                 } else {
                     bookMark = BookMark(
                         data.id,
