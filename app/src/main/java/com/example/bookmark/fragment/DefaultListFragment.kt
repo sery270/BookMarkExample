@@ -11,6 +11,7 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -37,11 +38,9 @@ class DefaultListFragment : Fragment() {
     lateinit var recyclerView: RecyclerView
     lateinit var adapter: DefaultListAdapter
     private lateinit var bookMark: BookMark
-
     companion object {
         lateinit var product: Product
     }
-
     private var page = 1
     private var init = true
     var pageData = mutableListOf<Product>()
@@ -81,6 +80,10 @@ class DefaultListFragment : Fragment() {
             adapter.notifyDataSetChanged()
 //            Log.e("pageData ! ",
 //                "${pageData[0].name}" )
+        }
+
+        bookMarkViewModel.ascRate.observe(owner = viewLifecycleOwner) { bookMark ->
+            bookMark.let { adapter.notifyDataSetChanged() }
         }
 
 
