@@ -16,8 +16,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/item_bg"
-    android:layout_marginBottom="20dp"
-    android:onClick="@{clickListener}">
+    android:layout_marginBottom="20dp">
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -54,6 +53,7 @@
         android:id="@+id/item_book_marked_list_iv"
         android:layout_width="180dp"
         android:layout_height="150dp"
+        android:src="@drawable/thumb_img_22"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="@id/gl_left"
         app:layout_constraintTop_toTopOf="@id/gl_top"/>
@@ -62,7 +62,7 @@
         android:id="@+id/item_book_marked_list_tv_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@{bookMark.name}"
+        android:text="따뜻한 분위기의 서비스와 현대적인 호텔"
         android:textSize="17sp"
         android:textColor="@color/basic_black"
         app:layout_constraintStart_toEndOf="@id/item_book_marked_list_iv"
@@ -119,17 +119,6 @@
         app:layout_constraintTop_toBottomOf="@id/item_book_marked_list_iv"
         app:layout_constraintBottom_toBottomOf="@id/gl_bottom"
         android:layout_marginTop="10dp" />
-
-    <TextView
-        android:id="@+id/item_book_marked_list_tv_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@{bookMark.id}"
-        app:layout_constraintStart_toStartOf="@id/gl_left"
-        app:layout_constraintEnd_toEndOf="@id/gl_right"
-        app:layout_constraintTop_toBottomOf="@id/item_book_marked_list_iv"
-        app:layout_constraintBottom_toBottomOf="@id/gl_bottom"
-        android:visibility="gone"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

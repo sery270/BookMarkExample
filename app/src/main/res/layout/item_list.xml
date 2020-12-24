@@ -92,14 +92,4 @@
         app:layout_constraintEnd_toEndOf="@id/gl_right"
         app:layout_constraintBottom_toBottomOf="@id/gl_bottom"/>
 
-    <TextView
-        android:id="@+id/item_list_tv_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@id/gl_left"
-        app:layout_constraintEnd_toEndOf="@id/gl_right"
-        app:layout_constraintBottom_toBottomOf="@id/gl_bottom"
-        android:visibility="gone"/>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

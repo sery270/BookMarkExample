@@ -48,8 +48,6 @@ class DefaultListAdapter(private val context: Context) : RecyclerView.Adapter<De
     }
 
     class DefaultViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        private val id = itemView.findViewById<TextView>(R.id.item_list_tv_id)
         private val thumbnail = itemView.findViewById<ImageView>(R.id.item_list_iv)
         private val name = itemView.findViewById<TextView>(R.id.item_list_tv_name)
         private val rate = itemView.findViewById<TextView>(R.id.item_list_tv_rate)
@@ -57,8 +55,6 @@ class DefaultListAdapter(private val context: Context) : RecyclerView.Adapter<De
 
 
         fun bind(product: Product) {
-            // id
-            id.text = product.id.toString()
             // thumbnail
             Glide.with(itemView).load(product.thumbnail).into(thumbnail)
             // name

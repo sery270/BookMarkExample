@@ -54,7 +54,6 @@ class BookMarkedListAdapter :
 
     class BookMarkViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        private val id = itemView.findViewById<TextView>(R.id.item_book_marked_list_tv_id)
         private val thumbnail = itemView.findViewById<ImageView>(R.id.item_book_marked_list_iv)
         private val name = itemView.findViewById<TextView>(R.id.item_book_marked_list_tv_name)
         private val rate = itemView.findViewById<TextView>(R.id.item_book_marked_list_tv_rate)
@@ -63,8 +62,6 @@ class BookMarkedListAdapter :
         private val msg = itemView.findViewById<TextView>(R.id.item_book_marked_list_tv_msg)
 
         fun bind(bookMark: BookMark) {
-            // id
-            id.text = bookMark.id.toString()
             // thumbnail
             Glide.with(itemView).load(bookMark.thumbnail).into(thumbnail)
             // name
