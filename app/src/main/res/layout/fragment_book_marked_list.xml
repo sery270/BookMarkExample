@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@id/book_marked_list_fg_rv"
             app:layout_constraintEnd_toEndOf="parent"
@@ -32,10 +32,10 @@
                 android:id="@+id/book_marked_list_fg_asc_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="3dp"
+                android:layout_marginHorizontal="10dp"
                 android:background="@drawable/item_bg"
                 android:padding="5dp"
-                android:text="등록 오름차순"
+                android:text="등록 ↑"
                 android:textColor="@color/medium_gray"
                 android:textStyle="bold" />
 
@@ -43,10 +43,10 @@
                 android:id="@+id/book_marked_list_fg_desc_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="3dp"
+                android:layout_marginHorizontal="10dp"
                 android:background="@drawable/item_bg"
                 android:padding="5dp"
-                android:text="등록 내림차순"
+                android:text="등록 ↓"
                 android:textColor="@color/medium_gray"
                 android:textStyle="bold" />
 
@@ -54,10 +54,10 @@
                 android:id="@+id/book_marked_list_fg_asc_rate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="3dp"
+                android:layout_marginHorizontal="10dp"
                 android:background="@drawable/item_bg"
                 android:padding="5dp"
-                android:text="평점 오름차순"
+                android:text="평점 ↑"
                 android:textColor="@color/medium_gray"
                 android:textStyle="bold" />
 
@@ -65,10 +65,10 @@
                 android:id="@+id/book_marked_list_fg_desc_rate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="3dp"
+                android:layout_marginHorizontal="10dp"
                 android:background="@drawable/item_bg"
                 android:padding="5dp"
-                android:text="평점 내림차순"
+                android:text="평점 ↓"
                 android:textColor="@color/medium_gray"
                 android:textStyle="bold" />
 
