@@ -31,7 +31,7 @@ class BookMarkViewModel(private val repository: BookMarkRepository) : ViewModel(
         repository.deleteAll(id)
     }
 
-    lateinit var product: Product
+//    lateinit var product: LiveData<Product>
 
 
 }

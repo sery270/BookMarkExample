@@ -45,6 +45,12 @@ class BookMarkedListAdapter :
         val current = getItem(position)
         holder.bind(current)
 
+        // 각 아이템에 onClickListener를 달고, 그 안에 직접 만든 itemClickListener 연결.
+        holder.itemView.setOnClickListener {
+            itemClickListener.onClick(it,current)
+            holder.bind(current)
+        }
+
         // 각 아이템의 하트 토글에 onClickListener를 달고, 그 안에 직접 만든 bookMarkClickListener 연결.
         holder.itemView.findViewById<CheckBox>(R.id.item_book_marked_list_btn_book_mark)
             .setOnClickListener {
@@ -108,6 +114,11 @@ class BookMarkedListAdapter :
     }
 
     private lateinit var bookMarkClickListener: ItemClickListener
+    private lateinit var itemClickListener: ItemClickListener
+
+    fun setItemClickListener(itemClickListener: ItemClickListener) {
+        this.itemClickListener = itemClickListener
+    }
 
     fun setBookMarkClickListener(bookMarkClickListener: ItemClickListener) {
         this.bookMarkClickListener = bookMarkClickListener

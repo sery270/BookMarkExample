@@ -14,6 +14,7 @@ import android.widget.ListAdapter
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.observe
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,6 +23,7 @@ import com.example.bookmark.DataBinderMapperImpl
 import com.example.bookmark.R
 import com.example.bookmark.adapter.BookMarkedListAdapter
 import com.example.bookmark.adapter.DefaultListAdapter
+import com.example.bookmark.api.Description
 import com.example.bookmark.api.Product
 import com.example.bookmark.data.BookMark
 import com.example.bookmark.data.BookMarkApplication
@@ -38,7 +40,6 @@ class BookMarkedListFragment : Fragment(), View.OnClickListener {
     lateinit var adapter: BookMarkedListAdapter
     private val bookMarkViewModel: BookMarkViewModel by viewModels {
         BookMarkViewModelFactory((activity?.application as BookMarkApplication).repository)
-        //context?.applicationContext  activity?.application과 의 차이점에 대해서 찾아보자
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,6 +66,25 @@ class BookMarkedListFragment : Fragment(), View.OnClickListener {
         bookMarkViewModel.ascRate.observe(owner = viewLifecycleOwner) { bookMark ->
             bookMark.let { adapter.submitList(it) }
         }
+
+        // item click listener -> navigate to detailFG
+        // 아이템을 클릭하면 해당 아이템의 상세뷰로 이동
+        adapter.setItemClickListener(object : BookMarkedListAdapter.ItemClickListener {
+            override fun onClick(view: View, bookMark: BookMark) {
+                val product = Product(
+                    bookMark.id,
+                    bookMark.name,
+                    bookMark.rate,
+                    bookMark.thumbnail,
+                    Description(bookMark.imagePath, bookMark.subject, bookMark.price)
+                )
+                DefaultListFragment.product = product
+//                bookMarkViewModel.product = product
+                // 아이템을 선택했다면 step2로 이동
+                val action = R.id.action_view_pager_fragment_to_detail_fragment
+                view.findNavController().navigate(action)
+            }
+        })
 
         // 아이템의 하트 토글을 통한 즐겨찾기 삽입 or 삭제
         adapter.setBookMarkClickListener(object : BookMarkedListAdapter.ItemClickListener {

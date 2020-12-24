@@ -11,6 +11,7 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.observe
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -117,7 +118,7 @@ class DefaultListFragment : Fragment() {
                 datas: MutableList<Product>
             ) {
                 product = data
-                bookMarkViewModel.product = data
+//                bookMarkViewModel.product = data
                 // 아이템을 선택했다면 step2로 이동
                 val action = R.id.action_view_pager_fragment_to_detail_fragment
                 view.findNavController().navigate(action)
