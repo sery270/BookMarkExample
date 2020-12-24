@@ -16,11 +16,14 @@ import com.example.bookmark.data.BookMarkApplication
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class DefaultListAdapter(private val context: Context) : RecyclerView.Adapter<DefaultListAdapter.DefaultViewHolder>() {
+class DefaultListAdapter(private val context: Context) :
+    RecyclerView.Adapter<DefaultListAdapter.DefaultViewHolder>() {
     var datas = mutableListOf<Product>()
-    private lateinit var bookMark: BookMark
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DefaultListAdapter.DefaultViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): DefaultListAdapter.DefaultViewHolder {
         return DefaultListAdapter.DefaultViewHolder.create(parent)
     }
 
@@ -29,15 +32,15 @@ class DefaultListAdapter(private val context: Context) : RecyclerView.Adapter<De
         holder.setIsRecyclable(false)
 
 
-        //view에 onClickListener를 달고, 그 안에서 직접 만든 itemClickListener를 연결시킨다
+        // 각 아이템에 onClickListener를 달고, 그 안에 직접 만든 itemClickListener 연결.
         holder.itemView.setOnClickListener {
-            itemClickListener.onClick(it,position,datas[position], datas)
+            itemClickListener.onClick(it, position, datas[position], datas)
             holder.bind(datas[position])
         }
 
-        //view에 onClickListener를 달고, 그 안에서 직접 만든 itemClickListener를 연결시킨다
+        // 각 아이템의 하트 토글에 onClickListener를 달고, 그 안에 직접 만든 bookMarkClickListener 연결.
         holder.itemView.findViewById<CheckBox>(R.id.item_list_btn_book_mark).setOnClickListener {
-            bookMarkClickListener.onClick(it,position,datas[position], datas)
+            bookMarkClickListener.onClick(it, position, datas[position], datas)
             holder.bind(datas[position])
         }
     }
@@ -63,7 +66,10 @@ class DefaultListAdapter(private val context: Context) : RecyclerView.Adapter<De
             rate.text = product.rate.toString()
             // bookMark
             GlobalScope.launch {
-                isBookMarked.isChecked = (itemView.context.applicationContext as BookMarkApplication).repository.isBookMarked(product.id)
+                isBookMarked.isChecked =
+                    (itemView.context.applicationContext as BookMarkApplication).repository.isBookMarked(
+                        product.id
+                    )
             }
 
         }
@@ -77,16 +83,13 @@ class DefaultListAdapter(private val context: Context) : RecyclerView.Adapter<De
         }
     }
 
-    //클릭 인터페이스 정의
-    interface ItemClickListener{
+    interface ItemClickListener {
         fun onClick(view: View, position: Int, data: Product, datas: MutableList<Product>)
     }
 
-    //클릭리스너 선언
     private lateinit var itemClickListener: ItemClickListener
     private lateinit var bookMarkClickListener: ItemClickListener
 
-    //클릭리스너 등록 메소드
     fun setItemClickListener(itemClickListener: ItemClickListener) {
         this.itemClickListener = itemClickListener
     }

@@ -6,7 +6,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
 
-class ItemDecoration: RecyclerView.ItemDecoration() {
+class ItemDecoration : RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(
         outRect: Rect,
@@ -15,9 +15,9 @@ class ItemDecoration: RecyclerView.ItemDecoration() {
         state: RecyclerView.State
     ) {
         super.getItemOffsets(outRect, view, parent, state)
-        val pos  = parent.getChildAdapterPosition(view)
-        if(pos == 0)
-            //  dp 단위를 Pixel 단위로 변경
+        val pos = parent.getChildAdapterPosition(view)
+        if (pos == 0)
+        //  dp 단위를 Pixel 단위로 변경
             outRect.top = TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
                 20F, view.context.resources.displayMetrics

@@ -33,7 +33,7 @@ interface BookMarkDAO {
     suspend fun insert(bookMark: BookMark)
 
     // 즐겨 찾기 해제한 상품을 삭제
-    // @Delete 하니까 에러가 생겼다.
+    // @Delete 하니까 에러가 생겨 @Query로 작성
     @Query("DELETE FROM BookMarkTable WHERE id = (:id)")
     suspend fun deleteAll(id: Int)
 

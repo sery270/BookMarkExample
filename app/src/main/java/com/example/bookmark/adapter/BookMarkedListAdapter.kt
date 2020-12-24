@@ -45,11 +45,12 @@ class BookMarkedListAdapter :
         val current = getItem(position)
         holder.bind(current)
 
-        //view에 onClickListener를 달고, 그 안에서 직접 만든 itemClickListener를 연결시킨다
-        holder.itemView.findViewById<CheckBox>(R.id.item_book_marked_list_btn_book_mark).setOnClickListener {
-            bookMarkClickListener.onClick(it,current)
-            holder.bind(current)
-        }
+        // 각 아이템의 하트 토글에 onClickListener를 달고, 그 안에 직접 만든 bookMarkClickListener 연결.
+        holder.itemView.findViewById<CheckBox>(R.id.item_book_marked_list_btn_book_mark)
+            .setOnClickListener {
+                bookMarkClickListener.onClick(it, current)
+                holder.bind(current)
+            }
     }
 
     class BookMarkViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -70,10 +71,14 @@ class BookMarkedListAdapter :
             rate.text = bookMark.rate.toString()
             // bookMark
             GlobalScope.launch {
-                isBookMarked.isChecked = (itemView.context.applicationContext as BookMarkApplication).repository.isBookMarked(bookMark.id)
+                isBookMarked.isChecked =
+                    (itemView.context.applicationContext as BookMarkApplication).repository.isBookMarked(
+                        bookMark.id
+                    )
             }
             // msg
-            msg.text = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date(bookMark.timeStamp)) +  "에 찜 하셨어요!"
+            msg.text =
+                SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Date(bookMark.timeStamp)) + "에 찜 하셨어요!"
 
 
         }
@@ -98,12 +103,10 @@ class BookMarkedListAdapter :
     }
 
 
-    //클릭 인터페이스 정의
-    interface ItemClickListener{
+    interface ItemClickListener {
         fun onClick(view: View, bookMark: BookMark)
     }
 
-    //클릭리스너 선언
     private lateinit var bookMarkClickListener: ItemClickListener
 
     fun setBookMarkClickListener(bookMarkClickListener: ItemClickListener) {

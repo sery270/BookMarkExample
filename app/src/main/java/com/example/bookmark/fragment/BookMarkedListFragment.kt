@@ -36,7 +36,7 @@ import kotlinx.coroutines.launch
 class BookMarkedListFragment : Fragment(), View.OnClickListener {
     lateinit var recyclerView: RecyclerView
     lateinit var adapter: BookMarkedListAdapter
-    private val bookMarkViewModel: BookMarkViewModel by viewModels{
+    private val bookMarkViewModel: BookMarkViewModel by viewModels {
         BookMarkViewModelFactory((activity?.application as BookMarkApplication).repository)
         //context?.applicationContext  activity?.application과 의 차이점에 대해서 찾아보자
     }
@@ -50,7 +50,6 @@ class BookMarkedListFragment : Fragment(), View.OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_book_marked_list, container, false)
     }
 
@@ -62,16 +61,16 @@ class BookMarkedListFragment : Fragment(), View.OnClickListener {
         adapter = BookMarkedListAdapter()
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this.context)
-//        recyclerView.addItemDecoration(ItemDecoration())
 
         bookMarkViewModel.ascRate.observe(owner = viewLifecycleOwner) { bookMark ->
             bookMark.let { adapter.submitList(it) }
         }
 
-        // 아이템의 하트를 눌러 즐겨찾기 삽입 or 삭제
+        // 아이템의 하트 토글을 통한 즐겨찾기 삽입 or 삭제
         adapter.setBookMarkClickListener(object : BookMarkedListAdapter.ItemClickListener {
             override fun onClick(view: View, bookMark: BookMark) {
-                val isBookMarked = view.findViewById<CheckBox>(R.id.item_book_marked_list_btn_book_mark)
+                val isBookMarked =
+                    view.findViewById<CheckBox>(R.id.item_book_marked_list_btn_book_mark)
                 if (!isBookMarked.isChecked) {
                     bookMarkViewModel.deleteAll(bookMark.id)
                 } else {
@@ -90,46 +89,63 @@ class BookMarkedListFragment : Fragment(), View.OnClickListener {
             }
         })
 
+        // 각 정렬 버튼에 리스너 부착
         view.findViewById<TextView>(R.id.book_marked_list_fg_desc_time).setOnClickListener(this)
         view.findViewById<TextView>(R.id.book_marked_list_fg_asc_time).setOnClickListener(this)
         view.findViewById<TextView>(R.id.book_marked_list_fg_desc_rate).setOnClickListener(this)
         view.findViewById<TextView>(R.id.book_marked_list_fg_asc_rate).setOnClickListener(this)
     }
 
-    // 정렬버튼
-    override fun onClick (v: View){
-        view?.findViewById<TextView>(R.id.book_marked_list_fg_desc_rate)?.setTextColor(resources.getColor(R.color.medium_gray))
-        view?.findViewById<TextView>(R.id.book_marked_list_fg_asc_rate)?.setTextColor(resources.getColor(R.color.medium_gray))
-        view?.findViewById<TextView>(R.id.book_marked_list_fg_desc_time)?.setTextColor(resources.getColor(R.color.medium_gray))
-        view?.findViewById<TextView>(R.id.book_marked_list_fg_asc_time)?.setTextColor(resources.getColor(R.color.medium_gray))
-        when(v.id){
-            R.id.book_marked_list_fg_asc_rate -> {ascRate()
-                (v as TextView).setTextColor(resources.getColor(R.color.young_red))}
-            R.id.book_marked_list_fg_desc_rate -> {descRate()
-                (v as TextView).setTextColor(resources.getColor(R.color.young_red))}
-            R.id.book_marked_list_fg_asc_time -> {ascTime()
-                (v as TextView).setTextColor(resources.getColor(R.color.young_red))}
-            R.id.book_marked_list_fg_desc_time -> {descTime()
-                (v as TextView).setTextColor(resources.getColor(R.color.young_red))}
+    // 정렬 버튼 리스너 관련 동작 처리
+    override fun onClick(v: View) {
+        view?.findViewById<TextView>(R.id.book_marked_list_fg_desc_rate)
+            ?.setTextColor(resources.getColor(R.color.medium_gray))
+        view?.findViewById<TextView>(R.id.book_marked_list_fg_asc_rate)
+            ?.setTextColor(resources.getColor(R.color.medium_gray))
+        view?.findViewById<TextView>(R.id.book_marked_list_fg_desc_time)
+            ?.setTextColor(resources.getColor(R.color.medium_gray))
+        view?.findViewById<TextView>(R.id.book_marked_list_fg_asc_time)
+            ?.setTextColor(resources.getColor(R.color.medium_gray))
+        when (v.id) {
+            R.id.book_marked_list_fg_asc_rate -> {
+                ascRate()
+                (v as TextView).setTextColor(resources.getColor(R.color.young_red))
+            }
+            R.id.book_marked_list_fg_desc_rate -> {
+                descRate()
+                (v as TextView).setTextColor(resources.getColor(R.color.young_red))
+            }
+            R.id.book_marked_list_fg_asc_time -> {
+                ascTime()
+                (v as TextView).setTextColor(resources.getColor(R.color.young_red))
+            }
+            R.id.book_marked_list_fg_desc_time -> {
+                descTime()
+                (v as TextView).setTextColor(resources.getColor(R.color.young_red))
+            }
         }
 
     }
-    private fun ascRate(){
+
+    private fun ascRate() {
         bookMarkViewModel.ascRate.observe(owner = viewLifecycleOwner) { bookMark ->
             bookMark.let { adapter.submitList(it) }
         }
     }
-    private fun descRate(){
+
+    private fun descRate() {
         bookMarkViewModel.descRate.observe(owner = viewLifecycleOwner) { bookMark ->
             bookMark.let { adapter.submitList(it) }
         }
     }
-    private fun ascTime(){
+
+    private fun ascTime() {
         bookMarkViewModel.ascTimeStamp.observe(owner = viewLifecycleOwner) { bookMark ->
             bookMark.let { adapter.submitList(it) }
         }
     }
-    private fun descTime(){
+
+    private fun descTime() {
         bookMarkViewModel.descTimeStamp.observe(owner = viewLifecycleOwner) { bookMark ->
             bookMark.let { adapter.submitList(it) }
         }

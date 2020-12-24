@@ -38,9 +38,11 @@ class DefaultListFragment : Fragment() {
     lateinit var recyclerView: RecyclerView
     lateinit var adapter: DefaultListAdapter
     private lateinit var bookMark: BookMark
+
     companion object {
         lateinit var product: Product
     }
+
     private var page = 1
     private var init = true
     var pageData = mutableListOf<Product>()
@@ -57,7 +59,6 @@ class DefaultListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_default_list, container, false)
     }
 
@@ -78,8 +79,6 @@ class DefaultListFragment : Fragment() {
         } else {
             adapter.datas = pageData
             adapter.notifyDataSetChanged()
-//            Log.e("pageData ! ",
-//                "${pageData[0].name}" )
         }
 
         bookMarkViewModel.ascRate.observe(owner = viewLifecycleOwner) { bookMark ->
@@ -92,9 +91,9 @@ class DefaultListFragment : Fragment() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
-                var lastVisibleItemPosition =
+                val lastVisibleItemPosition =
                     (recyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
-                var itemTotalCount =
+                val itemTotalCount =
                     (recyclerView.layoutManager as LinearLayoutManager).itemCount - 1
 //                Log.e("스크롤 중 ! ",
 //                    "lastVisibleItemPosition: ${lastVisibleItemPosition.toString()} " +
@@ -125,7 +124,7 @@ class DefaultListFragment : Fragment() {
             }
         })
 
-        // 아이템의 하트를 눌러 즐겨찾기 삽입 or 삭제
+        // 아이템의 하트 토글을 통한 즐겨찾기 삽입 or 삭제
         adapter.setBookMarkClickListener(object : DefaultListAdapter.ItemClickListener {
             override fun onClick(
                 view: View,
@@ -157,7 +156,7 @@ class DefaultListFragment : Fragment() {
     private fun getDefaultList(page: Int) {
         val call: Call<ResponseProductInfo> = RequestToServer.service.requestAccommodationInfo(page)
         call.enqueue(object : Callback<ResponseProductInfo> {
-            // 통신 자체 실패 -> 클라 잘못
+            // 통신 자체 실패 -> 클라 점검
             override fun onFailure(
                 call: Call<ResponseProductInfo>,
                 t: Throwable

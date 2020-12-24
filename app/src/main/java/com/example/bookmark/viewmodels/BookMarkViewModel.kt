@@ -11,16 +11,16 @@ import kotlinx.coroutines.launch
 
 class BookMarkViewModel(private val repository: BookMarkRepository) : ViewModel() {
 
-    // 평점 기준 오름차순 정렬
+    // 평점 기준 오름차순 정렬 데이터
     val ascRate = repository.ascRate.asLiveData()
 
-    // 평점 기준 내림차순 정렬
+    // 평점 기준 내림차순 정렬 데이터
     val descRate = repository.descRate.asLiveData()
 
-    // 등록시간 기준 오름차순 정렬
+    // 등록시간 기준 오름차순 정렬 데이터
     val ascTimeStamp = repository.ascTimeStamp.asLiveData()
 
-    // 등록시간 기준 내림차순 정렬
+    // 등록시간 기준 내림차순 정렬 데이터
     val descTimeStamp = repository.descTimeStamp.asLiveData()
 
     fun insert(bookMark: BookMark) = viewModelScope.launch {
@@ -32,7 +32,6 @@ class BookMarkViewModel(private val repository: BookMarkRepository) : ViewModel(
     }
 
     lateinit var product: Product
-
 
 
 }

@@ -17,7 +17,7 @@ class ViewPagerFragment : Fragment() {
     private lateinit var viewPagerAdapter: ViewPagerAdapter
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
-    private val tabLayoutTextArray = arrayOf("전체 리스트","즐겨찾기 리스트")
+    private val tabLayoutTextArray = arrayOf("전체 리스트", "즐겨찾기 리스트")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +28,6 @@ class ViewPagerFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_view_pager, container, false)
     }
 

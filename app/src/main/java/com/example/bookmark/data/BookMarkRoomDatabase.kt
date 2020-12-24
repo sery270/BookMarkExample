@@ -12,7 +12,7 @@ public abstract class BookMarkRoomDatabase : RoomDatabase() {
     abstract fun bookMarkDao(): BookMarkDAO
 
     private class BookMarkDatabaseCallback(
-            private val scope: CoroutineScope
+        private val scope: CoroutineScope
     ) : RoomDatabase.Callback() {
 
         override fun onCreate(db: SupportSQLiteDatabase) {
@@ -26,7 +26,6 @@ public abstract class BookMarkRoomDatabase : RoomDatabase() {
 
         suspend fun populateDatabase(bookMarkDao: BookMarkDAO) {
             // Delete all content here.
-//            bookMarkDao.deleteAll()
         }
     }
 
@@ -40,12 +39,12 @@ public abstract class BookMarkRoomDatabase : RoomDatabase() {
             // if it is, then create the database
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
-                        context.applicationContext,
-                        BookMarkRoomDatabase::class.java,
-                        "BookMarkTable"
+                    context.applicationContext,
+                    BookMarkRoomDatabase::class.java,
+                    "BookMarkTable"
                 )
-                        .addCallback(BookMarkDatabaseCallback(scope))
-                        .build()
+                    .addCallback(BookMarkDatabaseCallback(scope))
+                    .build()
                 INSTANCE = instance
                 // return instance
                 instance

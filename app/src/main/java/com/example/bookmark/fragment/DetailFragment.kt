@@ -28,12 +28,7 @@ class DetailFragment : Fragment() {
     private val bookMarkViewModel: BookMarkViewModel by viewModels {
         BookMarkViewModelFactory((activity?.application as BookMarkApplication).repository)
     }
-    lateinit var adapter: DefaultListAdapter
     private lateinit var bookMark: BookMark
-//
-//    val product: Product by lazy {
-//        bookMarkViewModel.product
-//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +39,6 @@ class DetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_detail, container, false)
     }
 
@@ -70,7 +64,10 @@ class DetailFragment : Fragment() {
         price.text = product.description.price.toString()
         // bookMark
         GlobalScope.launch {
-            isBookMarked.isChecked = (view.context.applicationContext as BookMarkApplication).repository.isBookMarked(product.id)
+            isBookMarked.isChecked =
+                (view.context.applicationContext as BookMarkApplication).repository.isBookMarked(
+                    product.id
+                )
         }
 
         // 하트를 누르면 즐겨찾기 삽입 및 삭제
@@ -91,8 +88,6 @@ class DetailFragment : Fragment() {
                 bookMarkViewModel.insert(bookMark)
             }
         }
-
-
 
 
         // 뒤로가기
