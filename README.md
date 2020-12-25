@@ -15,12 +15,12 @@ Android Jetpack을 적극적으로 사용하였으며, 이는 여름부터 공�
 
 Paging           |  Detailed View           |  Sorting
 :-------------------------:|:-------------------------:|:-------------------------:
-<img src="https://github.com/sery270/BookMarkExample/blob/master/Docs/paging.gif" width = 300>  |  <img src="https://github.com/sery270/BookMarkExample/blob/master/Docs/Detail.gif" width = 300>  |  <img src="https://github.com/sery270/BookMarkExample/blob/master/Docs/sorting.gif" width = 300>  
+<img src="./Docs/paging.gif" width = 300>  |  <img src="./Docs/Detail.gif" width = 300>  |  <img src="./Docs/sorting.gif" width = 300>  
 
 
 Registering BookMark           |  Unregistering BookMark          |  Saving to Internal Storage
 :-------------------------:|:-------------------------:|:-------------------------:
-<img src="https://github.com/sery270/BookMarkExample/blob/master/Docs/registering.gif" width = 300>  |  <img src="https://github.com/sery270/BookMarkExample/blob/master/Docs/unregistering.gif" width = 300>  |  <img src="https://github.com/sery270/BookMarkExample/blob/master/Docs/local.gif" width = 300>  
+<img src="./Docs/registering.gif" width = 300>  |  <img src="./Docs/unregistering.gif" width = 300>  |  <img src="./Docs/local.gif" width = 300>  
 
 # BookMarkExample 프로젝트 개발환경
 
@@ -31,10 +31,10 @@ Registering BookMark           |  Unregistering BookMark          |  Saving to I
 ## App Architecture
 
 ### UI
-<img src="https://github.com/sery270/BookMarkExample/blob/master/Docs/UI.png" width = 700> 
+<img src="./Docs/UI.png" width = 700> 
 
 ### Data
-<img src="https://github.com/sery270/BookMarkExample/blob/master/Docs/data.png" width = 700> 
+<img src="./Docs/data.png" width = 700> 
 
 
 
@@ -80,7 +80,7 @@ Android KTX
 
 ## Coding conventions
 
-[BookMarkExample 프로젝트 Coding conventions](https://github.com/sery270/BookMarkExample/blob/master/Docs/Coding_Convention.md)
+[BookMarkExample 프로젝트 Coding conventions](./Docs/Coding_Convention.md)
 
 
 ## Git conventions
@@ -102,7 +102,7 @@ Android KTX
 
 ## Foldering
 
-<img src="https://github.com/sery270/BookMarkExample/blob/master/Docs/foldering.png" width = 300> 
+<img src="./Docs/foldering.png" width = 300> 
 
 # 마무리
 
