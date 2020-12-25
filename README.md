@@ -106,6 +106,10 @@ Android KTX
 
 # 마무리
 
-### 소감
+### 보완할 점
 
-### 아쉬운 점
+- Data Binding 적용하기
+
+- DetailFragment inflate할 때도 viewmodel 활용하기
+
+- RecyclerView 로딩할 때, 로딩 처리 및 아이템 등장 애니메이션 넣기
