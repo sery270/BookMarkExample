@@ -13,7 +13,7 @@ Android Jetpack을 적극적으로 사용하였으며, 이는 여름부터 공�
 
 ## 기능 소개
 
-Paging           |  Detaied View           |  Sorting
+Paging           |  Detailed View           |  Sorting
 :-------------------------:|:-------------------------:|:-------------------------:
 <img src="https://github.com/sery270/BookMarkExample/blob/master/Docs/paging.gif" width = 300>  |  <img src="https://github.com/sery270/BookMarkExample/blob/master/Docs/Detail.gif" width = 300>  |  <img src="https://github.com/sery270/BookMarkExample/blob/master/Docs/sorting.gif" width = 300>  
 
@@ -22,17 +22,23 @@ Registering BookMark           |  Unregistering BookMark          |  Saving to I
 :-------------------------:|:-------------------------:|:-------------------------:
 <img src="https://github.com/sery270/BookMarkExample/blob/master/Docs/registering.gif" width = 300>  |  <img src="https://github.com/sery270/BookMarkExample/blob/master/Docs/unregistering.gif" width = 300>  |  <img src="https://github.com/sery270/BookMarkExample/blob/master/Docs/local.gif" width = 300>  
 
-## 기능 구현 설명
-
 # BookMarkExample 프로젝트 개발환경
 
 ## Kotlin 1.3.72
 
 ## Android Studio 4.1
 
-## 프로젝트 구조도
+## App Architecture
 
-references
+### UI
+<img src="https://github.com/sery270/BookMarkExample/blob/master/Docs/UI.png" width = 700> 
+
+### Data
+<img src="https://github.com/sery270/BookMarkExample/blob/master/Docs/data.png" width = 700> 
+
+
+
+> references
 
 [Sunflower 스터디](https://github.com/sery270/sunflower_clone)
 
@@ -40,7 +46,7 @@ references
 
 [Android Room with a View - Kotlin](https://developer.android.com/codelabs/android-room-with-a-view-kotlin?hl=ko#14)
 
-## 라이브러리
+## Library
 
 ### Jetpack
 
@@ -95,6 +101,8 @@ Android KTX
 
 
 ## Foldering
+
+<img src="https://github.com/sery270/BookMarkExample/blob/master/Docs/foldering.png" width = 300> 
 
 # 마무리
 
